@@ -1,6 +1,6 @@
-const CACHE='ironkey-v7';
+const CACHE='ironkey-v8';
 const B='/life-is-awesome-';
-const FILES=[B+'/',B+'/manifest.json',B+'/apple-touch-icon.png',B+'/icon-192.png',B+'/icon-512.png',B+'/_expo/static/js/web/index-6eea2af551b16f35f896f9369bf73731.js'];
+const FILES=[B+'/',B+'/manifest.json',B+'/apple-touch-icon.png',B+'/icon-192.png',B+'/icon-512.png',B+'/_expo/static/js/web/index-e3edec05cc376b5858b8ae5faa8a6a8e.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{const c=r.clone();caches.open(CACHE).then(x=>x.put(e.request,c));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match(B+'/'))))});
